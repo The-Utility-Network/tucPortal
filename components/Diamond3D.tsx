@@ -329,9 +329,7 @@ export default function Diamond3D({ facets, methodNames, facetNames, facetAbis =
         setBusy(true);
         setOutput('');
         try {
-            const resp = await fetch('/api/thirdweb/client', { cache: 'no-store' });
-            const { clientId } = await resp.json();
-            const client = createThirdwebClient({ clientId });
+            const client = createThirdwebClient({ clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT as string });
             const address = diamondAddress;
             const contractDyn = getContract({ client, chain: base, address, abi: facetAbis[selection.facet] as any });
             const res = await readContract({
@@ -352,9 +350,7 @@ export default function Diamond3D({ facets, methodNames, facetNames, facetAbis =
         setBusy(true);
         setOutput('');
         try {
-            const resp = await fetch('/api/thirdweb/client', { cache: 'no-store' });
-            const { clientId } = await resp.json();
-            const client = createThirdwebClient({ clientId });
+            const client = createThirdwebClient({ clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT as string });
             const address = diamondAddress;
             const contractDyn = getContract({ client, chain: base, address, abi: facetAbis[selection.facet] as any });
             const tx = prepareContractCall({

@@ -200,7 +200,8 @@ const PortalHUD: React.FC<PortalHUDProps> = ({ onNavigate, currentView }) => {
                             <img
                                 src="/Medallions/TUC.png"
                                 alt="TUC Medallion"
-                                className="w-8 h-8 md:w-10 md:h-10 object-contain drop-shadow-[0_0_8px_rgba(245,64,41,0.6)] animate-pulse-slow"
+                                className="w-8 h-8 md:w-10 md:h-10 object-contain drop-shadow-[0_0_8px_rgba(245,64,41,0.6)] animate-pulse-slow max-w-[40px] max-h-[40px]"
+                                style={{ width: '40px', height: '40px' }}
                             />
                         </button>
                     </div>

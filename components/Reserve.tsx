@@ -212,14 +212,7 @@ const Reserve = () => {
   // State variable for balance history
   const [balanceHistory, setBalanceHistory] = useState<any[]>([]);
 
-  // API Key
-  const apiKey = (() => {
-    const apiKey = process.env.NEXT_PUBLIC_EXPLORER_API_KEY;
-    if (!apiKey) {
-      throw new Error('NEXT_PUBLIC_EXPLORER_API_KEY environment variable is not set.');
-    }
-    return apiKey;
-  })();
+
 
   // Active Account
   const address = useActiveAccount()?.address;
@@ -294,12 +287,12 @@ const Reserve = () => {
     try {
       // Fetch External Transactions
       const externalTxResponse = await axios.get(
-        `https://api.etherscan.io/v2/api?chainid=8453&module=account&action=txlist&address=${contractAddress}&sort=asc&apikey=${apiKey}`
+        `/api/reserve-data?action=txlist&address=${contractAddress}`
       );
 
       // Fetch Internal Transactions
       const internalTxResponse = await axios.get(
-        `https://api.etherscan.io/v2/api?chainid=8453&module=account&action=txlistinternal&address=${contractAddress}&sort=asc&apikey=${apiKey}`
+        `/api/reserve-data?action=txlistinternal&address=${contractAddress}`
       );
 
       const externalData = externalTxResponse.data;
@@ -399,7 +392,7 @@ const Reserve = () => {
 
       // Fetch the current balance of the contract to verify accuracy
       const balanceResponse = await axios.get(
-        `https://api.etherscan.io/v2/api?chainid=8453&module=account&action=balance&address=${contractAddress}&tag=latest&apikey=${apiKey}`
+        `/api/reserve-data?action=balance&address=${contractAddress}&tag=latest`
       );
       const balanceData = balanceResponse.data;
 

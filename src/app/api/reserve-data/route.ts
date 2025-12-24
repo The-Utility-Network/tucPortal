@@ -23,6 +23,11 @@ export async function GET(request: Request) {
             url = `${baseUrl}&action=txlistinternal&address=${address}&sort=asc&apikey=${apiKey}`;
         } else if (action === 'balance') {
             url = `${baseUrl}&action=balance&address=${address}&tag=${tag}&apikey=${apiKey}`;
+        } else if (action === 'getabi') {
+            // Module is 'contract' for these actions, override baseUrl's module=account
+            url = `https://api.etherscan.io/v2/api?chainid=8453&module=contract&action=getabi&address=${address}&apikey=${apiKey}`;
+        } else if (action === 'getsourcecode') {
+            url = `https://api.etherscan.io/v2/api?chainid=8453&module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`;
         } else {
             return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
         }

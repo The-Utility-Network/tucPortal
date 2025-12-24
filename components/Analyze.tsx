@@ -58,7 +58,7 @@ async function fetchABIFromBaseScan(address: string, apiKey: string, cache: any)
   if (cache.abis[address]) return cache.abis[address];
   try {
     const response = await requestQueue.enqueue(() => fetch(
-      `https://api.etherscan.io/v2/api?chainid=8453&module=contract&action=getabi&address=${address}&apikey=${apiKey}`
+      `/api/reserve-data?action=getabi&address=${address}`
     ));
     const data = await response.json();
     if (data.status === "1") {
@@ -81,7 +81,7 @@ async function fetchContractNameFromBaseScan(address: string, apiKey: string, ca
   if (cache.contractNames[address]) return cache.contractNames[address];
   try {
     const response = await requestQueue.enqueue(() => fetch(
-      `https://api.etherscan.io/v2/api?chainid=8453&module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`
+      `/api/reserve-data?action=getsourcecode&address=${address}`
     ));
     const data = await response.json();
     if (data.status === "1" && data.result?.[0]?.ContractName) {
@@ -96,21 +96,21 @@ async function fetchContractNameFromBaseScan(address: string, apiKey: string, ca
   return "Unknown Contract";
 }
 
-async function processFacets(formattedFacets: Facet[], apiKey: string, cache: any) {
+async function processFacets(formattedFacets: Facet[], cache: any) {
   const methodNamesLookup: { [key: string]: { readMethods: string[]; writeMethods: string[] } } = {};
   const facetNamesLookup: { [key: string]: string } = {};
 
   for (const facet of formattedFacets) {
     try {
       // 1. Get Name
-      const contractName = await fetchContractNameFromBaseScan(facet.facetAddress, apiKey, cache);
+      const contractName = await fetchContractNameFromBaseScan(facet.facetAddress, '', cache);
       if (!contractName || contractName === "Unknown Contract") {
         // continue; 
       }
       facetNamesLookup[facet.facetAddress] = contractName || "Unknown";
 
       // 2. Get ABI
-      const abi = await fetchABIFromBaseScan(facet.facetAddress, apiKey, cache);
+      const abi = await fetchABIFromBaseScan(facet.facetAddress, '', cache);
       if (!abi) {
         methodNamesLookup[facet.facetAddress] = { readMethods: [], writeMethods: [] };
         continue;
@@ -134,7 +134,7 @@ const AnalyzePanel: React.FC = () => {
   const [facetAbis, setFacetAbis] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const apiKey = process.env.NEXT_PUBLIC_EXPLORER_API_KEY as string;
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -149,7 +149,7 @@ const AnalyzePanel: React.FC = () => {
         }));
         setFacets(formattedFacets);
 
-        const { methodNamesLookup, facetNamesLookup } = await processFacets(formattedFacets, apiKey, currentCache);
+        const { methodNamesLookup, facetNamesLookup } = await processFacets(formattedFacets, currentCache);
 
         const abis: any = {};
         formattedFacets.forEach((f: Facet) => {
@@ -168,7 +168,7 @@ const AnalyzePanel: React.FC = () => {
       }
     };
     fetchData();
-  }, [apiKey]);
+  }, []);
 
   return (
     <div className="absolute inset-0 z-10 w-full h-full pointer-events-none">

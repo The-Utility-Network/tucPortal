@@ -71,9 +71,9 @@ const client = getThirdwebClient();
 const contractAddress = diamondAddress;
 
 // ABI
-const abi: any = [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"subsidiaryAddress","type":"address"}],"name":"BeneficiariesSynced","type":"event"},{"anonymous":false,"inputs":[],"name":"BeneficiariesWiped","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"beneficiaryAddress","type":"address"},{"indexed":false,"internalType":"uint256","name":"split","type":"uint256"},{"indexed":false,"internalType":"string","name":"role","type":"string"}],"name":"BeneficiaryAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"beneficiaryAddress","type":"address"}],"name":"BeneficiaryRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"beneficiaryAddress","type":"address"},{"indexed":false,"internalType":"uint256","name":"split","type":"uint256"},{"indexed":false,"internalType":"string","name":"role","type":"string"}],"name":"BeneficiaryUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"string","name":"note","type":"string"}],"name":"FundsDeposited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"string","name":"note","type":"string"}],"name":"OneTimePaymentSent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newPercentage","type":"uint256"}],"name":"ReserveWithdrawalPercentageUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Withdrawal","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newInterval","type":"uint256"}],"name":"WithdrawalIntervalUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newLimit","type":"uint256"}],"name":"WithdrawalLimitUpdated","type":"event"},{"inputs":[{"internalType":"address","name":"beneficiaryAddress","type":"address"},{"internalType":"uint256","name":"split","type":"uint256"},{"internalType":"string","name":"role","type":"string"}],"name":"addBeneficiary","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"note","type":"string"}],"name":"depositFunds","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"getBeneficiaries","outputs":[{"components":[{"internalType":"address","name":"beneficiaryAddress","type":"address"},{"internalType":"uint256","name":"split","type":"uint256"},{"internalType":"string","name":"role","type":"string"}],"internalType":"struct TUCReserve.Beneficiary[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"index","type":"uint256"}],"name":"removeBeneficiaryByIndex","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"percentage","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"string","name":"note","type":"string"}],"name":"sendOneTimePayment","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPercentage","type":"uint256"}],"name":"setReserveWithdrawalPercentage","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newInterval","type":"uint256"}],"name":"setWithdrawalInterval","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newLimit","type":"uint256"}],"name":"setWithdrawalLimit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"beneficiaryAddress","type":"address"},{"internalType":"uint256","name":"split","type":"uint256"},{"internalType":"string","name":"role","type":"string"}],"name":"updateBeneficiary","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"wipeBeneficiaries","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},
-    { "inputs": [{ "internalType": "string", "name": "role", "type": "string" }, { "internalType": "address", "name": "account", "type": "address" }], "name": "hasRole", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }
-  ] as const;
+const abi: any = [{ "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "subsidiaryAddress", "type": "address" }], "name": "BeneficiariesSynced", "type": "event" }, { "anonymous": false, "inputs": [], "name": "BeneficiariesWiped", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "beneficiaryAddress", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "split", "type": "uint256" }, { "indexed": false, "internalType": "string", "name": "role", "type": "string" }], "name": "BeneficiaryAdded", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "beneficiaryAddress", "type": "address" }], "name": "BeneficiaryRemoved", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "beneficiaryAddress", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "split", "type": "uint256" }, { "indexed": false, "internalType": "string", "name": "role", "type": "string" }], "name": "BeneficiaryUpdated", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }, { "indexed": false, "internalType": "string", "name": "note", "type": "string" }], "name": "FundsDeposited", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }, { "indexed": false, "internalType": "string", "name": "note", "type": "string" }], "name": "OneTimePaymentSent", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newPercentage", "type": "uint256" }], "name": "ReserveWithdrawalPercentageUpdated", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }], "name": "Withdrawal", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newInterval", "type": "uint256" }], "name": "WithdrawalIntervalUpdated", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newLimit", "type": "uint256" }], "name": "WithdrawalLimitUpdated", "type": "event" }, { "inputs": [{ "internalType": "address", "name": "beneficiaryAddress", "type": "address" }, { "internalType": "uint256", "name": "split", "type": "uint256" }, { "internalType": "string", "name": "role", "type": "string" }], "name": "addBeneficiary", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "string", "name": "note", "type": "string" }], "name": "depositFunds", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [], "name": "getBeneficiaries", "outputs": [{ "components": [{ "internalType": "address", "name": "beneficiaryAddress", "type": "address" }, { "internalType": "uint256", "name": "split", "type": "uint256" }, { "internalType": "string", "name": "role", "type": "string" }], "internalType": "struct TUCReserve.Beneficiary[]", "name": "", "type": "tuple[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "index", "type": "uint256" }], "name": "removeBeneficiaryByIndex", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "percentage", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "string", "name": "note", "type": "string" }], "name": "sendOneTimePayment", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newPercentage", "type": "uint256" }], "name": "setReserveWithdrawalPercentage", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newInterval", "type": "uint256" }], "name": "setWithdrawalInterval", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newLimit", "type": "uint256" }], "name": "setWithdrawalLimit", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "beneficiaryAddress", "type": "address" }, { "internalType": "uint256", "name": "split", "type": "uint256" }, { "internalType": "string", "name": "role", "type": "string" }], "name": "updateBeneficiary", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "wipeBeneficiaries", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+{ "inputs": [{ "internalType": "string", "name": "role", "type": "string" }, { "internalType": "address", "name": "account", "type": "address" }], "name": "hasRole", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }
+] as const;
 
 // Role Definition
 const CHIEF_OF_POLICE_ROLE = 'TheHighTable';
@@ -392,8 +392,7 @@ const Reserve = () => {
         console.log(
           `After txn ${txn.hash}: Balance = ${formatEther(
             balance.toString()
-          )} ETH, Change = ${
-            percentageChange !== null ? percentageChange.toFixed(2) + '%' : 'N/A'
+          )} ETH, Change = ${percentageChange !== null ? percentageChange.toFixed(2) + '%' : 'N/A'
           }`
         );
       });
@@ -814,7 +813,7 @@ const Reserve = () => {
           {/* Transaction Count and Balance */}
           <Grid container spacing={4} sx={{ maxWidth: 1200, mt: 2 }}>
             {balance !== '0' && (
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Card
                   elevation={3}
                   sx={{
@@ -837,7 +836,7 @@ const Reserve = () => {
               </Grid>
             )}
             {transactionCount > 0 && (
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Card
                   elevation={3}
                   sx={{
@@ -913,10 +912,10 @@ const Reserve = () => {
                     <StyledButton
                       variant="contained"
                       startIcon={<UpdateIcon />}
-                    //   onClick={() => {
-                    //     setSelectedFunction('updateAndSyncBeneficiaries');
-                    //     setOpenWriteFunctionDialog(true);
-                    //   }}
+                      //   onClick={() => {
+                      //     setSelectedFunction('updateAndSyncBeneficiaries');
+                      //     setOpenWriteFunctionDialog(true);
+                      //   }}
                       color="primary"
                     >
                       Sync Beneficiaries
@@ -999,7 +998,7 @@ const Reserve = () => {
                   Fund Management
                 </StyledTypography>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={4}>
+                  <Grid size={{ xs: 12, sm: 4 }}>
                     <StyledButton
                       variant="contained"
                       startIcon={<AttachMoneyIcon />}
@@ -1012,7 +1011,7 @@ const Reserve = () => {
                       Deposit Funds
                     </StyledButton>
                   </Grid>
-                  <Grid item xs={12} sm={4}>
+                  <Grid size={{ xs: 12, sm: 4 }}>
                     <StyledButton
                       variant="contained"
                       startIcon={<MoneyOffIcon />}
@@ -1025,7 +1024,7 @@ const Reserve = () => {
                       Withdraw Funds
                     </StyledButton>
                   </Grid>
-                  <Grid item xs={12} sm={4}>
+                  <Grid size={{ xs: 12, sm: 4 }}>
                     <StyledButton
                       variant="contained"
                       startIcon={<SendIcon />}
@@ -1045,7 +1044,7 @@ const Reserve = () => {
                   Beneficiary Management
                 </StyledTypography>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <StyledButton
                       variant="contained"
                       startIcon={<AddIcon />}
@@ -1056,21 +1055,21 @@ const Reserve = () => {
                       Add Beneficiary
                     </StyledButton>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <StyledButton
                       variant="contained"
-                    //   startIcon={<SyncIcon />}
-                    //   onClick={() => {
-                    //     setSelectedFunction('updateAndSyncBeneficiaries');
-                    //     setOpenWriteFunctionDialog(true);
-                    //   }}
+                      //   startIcon={<SyncIcon />}
+                      //   onClick={() => {
+                      //     setSelectedFunction('updateAndSyncBeneficiaries');
+                      //     setOpenWriteFunctionDialog(true);
+                      //   }}
                       fullWidth
                       color="warning"
                     >
                       Welcome to the Reserve
                     </StyledButton>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <StyledButton
                       variant="contained"
                       startIcon={<DeleteForeverIcon />}

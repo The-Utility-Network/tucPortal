@@ -43,7 +43,7 @@ function writeCache(cache: any) {
 
 // Optimized Fetching with Concurrency Control
 // Optimized Fetching with Concurrency Control
-async function batchFetchABIs(addresses: string[], apiKey: string, existingCache: any) {
+async function batchFetchABIs(addresses: string[], existingCache: any) {
   const resultABIs = { ...existingCache.abis };
   const toFetch = addresses.filter(addr => !resultABIs[addr]);
 
@@ -56,7 +56,7 @@ async function batchFetchABIs(addresses: string[], apiKey: string, existingCache
     await Promise.all(batch.map(async (address) => {
       try {
         const response = await fetch(
-          `https://api.etherscan.io/v2/api?chainid=8453&module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`
+          `/api/reserve-data?action=getsourcecode&address=${address}`
         );
         const data = await response.json();
         if (data.status === "1" && data.result && data.result[0]) {
@@ -695,13 +695,7 @@ export default function Directory() {
     const init = async () => {
       try {
         const cache = readCache();
-        const apiKey = process.env.NEXT_PUBLIC_EXPLORER_API_KEY;
 
-        if (!apiKey) {
-          console.error("API Key missing");
-          setLoading(false);
-          return;
-        }
 
         const facets = await getFacets();
         const facetAddresses = facets.map(f => f.target);
@@ -709,7 +703,7 @@ export default function Directory() {
         // Fast UI update
         setLoadingProgress(20);
 
-        const abis = await batchFetchABIs(facetAddresses, apiKey, cache);
+        const abis = await batchFetchABIs(facetAddresses, cache);
         writeCache({ facets, abis });
         setLoadingProgress(80);
 

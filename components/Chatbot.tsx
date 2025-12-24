@@ -345,13 +345,14 @@ const Chatbot: React.FC<ChatbotProps> = ({
                     }}
                   >
                     {msg.sender === "assistant" ? (
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm, remarkBreaks]}
-                        components={markdownComponents}
-                        className="prose prose-invert max-w-none text-sm"
-                      >
-                        {msg.text}
-                      </ReactMarkdown>
+                      <div className="prose prose-invert max-w-none text-sm">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm, remarkBreaks]}
+                          components={markdownComponents}
+                        >
+                          {msg.text}
+                        </ReactMarkdown>
+                      </div>
                     ) : (
                       <span className="text-white text-sm">{msg.text}</span>
                     )}

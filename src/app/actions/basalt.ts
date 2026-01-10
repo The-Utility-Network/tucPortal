@@ -39,8 +39,8 @@ export async function getBasaltInventory(): Promise<{ items: BasaltItem[], error
         const apiKey = process.env.BASALT_SURGE_API_KEY;
 
         if (!apiKey) {
-            console.error('BASALT_SURGE_API_KEY is not defined');
-            return { items: [], error: 'Configuration error' };
+            console.error('SERVER ACTION ERROR: BASALT_SURGE_API_KEY is not defined in environment variables. Please check Vercel project settings.');
+            return { items: [], error: 'Configuration error: API Key missing' };
         }
 
         const response = await fetch('https://surge.basalthq.com/api/inventory', {

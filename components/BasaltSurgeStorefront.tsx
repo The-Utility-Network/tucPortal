@@ -24,6 +24,7 @@ export default function BasaltSurgeStorefront({ isVisible, onClose }: BasaltSurg
 
     const fetchInventory = async () => {
         setIsLoading(true);
+        setError(null); // Reset error state on new attempt
         try {
             const { items: fetchedItems, error: fetchError } = await getBasaltInventory();
             if (fetchError) {

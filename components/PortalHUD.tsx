@@ -15,7 +15,9 @@ import {
     ScaleIcon,
     LinkIcon,
     MicrophoneIcon,
-    DocumentTextIcon
+    DocumentTextIcon,
+    SpeakerWaveIcon,
+    SpeakerXMarkIcon
 } from "@heroicons/react/24/outline";
 
 // Define Utility Red constant
@@ -28,9 +30,11 @@ const client = createThirdwebClient({
 interface PortalHUDProps {
     onNavigate: (view: string) => void;
     currentView: string;
+    isPlaying: boolean;
+    toggleMusic: () => void;
 }
 
-const PortalHUD: React.FC<PortalHUDProps> = ({ onNavigate, currentView }) => {
+const PortalHUD: React.FC<PortalHUDProps> = ({ onNavigate, currentView, isPlaying, toggleMusic }) => {
     const account = useActiveAccount();
     const [time, setTime] = useState<string>('');
     const [medallionOpen, setMedallionOpen] = useState(false);
@@ -87,6 +91,20 @@ const PortalHUD: React.FC<PortalHUDProps> = ({ onNavigate, currentView }) => {
                     <div className="hidden md:block text-xs font-mono text-[#F54029] tracking-wider">
                         {time}
                     </div>
+
+                    {/* Audio Toggle */}
+                    <button
+                        onClick={toggleMusic}
+                        className="p-2 rounded-full hover:bg-white/10 transition-colors border border-transparent hover:border-[#F54029]/30 group"
+                        title="Toggle Background Music"
+                    >
+                        {isPlaying ? (
+                            <SpeakerWaveIcon className="w-5 h-5 text-[#F54029]" />
+                        ) : (
+                            <SpeakerXMarkIcon className="w-5 h-5 text-gray-500 group-hover:text-[#F54029]/70" />
+                        )}
+                    </button>
+
                     {/* Wrapped in a specific ID to help with potential CSS specificity if needed, but keeping it clean for now */}
                     <div id="portal-connect-wrapper">
                         <ConnectButton

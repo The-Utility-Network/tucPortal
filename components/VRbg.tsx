@@ -11,7 +11,7 @@ import Principles from "./Principles";
 import Chatbot from './Chatbot';
 import LearnPanel from './Learn';
 import SubsidiaryManager from './SubsidiaryManager';
-import ShopifyStorefront from './ShopifyStorefront';
+import BasaltSurgeStorefront from './BasaltSurgeStorefront';
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
 
 export default function VRBackground() {
@@ -169,27 +169,11 @@ export default function VRBackground() {
           }
         }}
         currentView={currentView}
+        isPlaying={isPlaying}
+        toggleMusic={toggleMusic}
       />
 
-      {/* Music Control */}
-      <button
-        onClick={toggleMusic}
-        className="fixed z-[2000] rounded-full transition-all duration-300 hover:scale-110 pointer-events-auto
-          top-20 left-1/2 -translate-x-1/2 p-2 
-          md:top-auto md:left-auto md:translate-x-0 md:bottom-8 md:right-8 md:p-3"
-        style={{
-          background: 'rgba(0, 0, 0, 0.6)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(245, 64, 41, 0.3)',
-        }}
-        title="Toggle Background Music"
-      >
-        {isPlaying ? (
-          <SpeakerWaveIcon className="w-4 h-4 md:w-6 md:h-6 text-[#F54029]" />
-        ) : (
-          <SpeakerXMarkIcon className="w-4 h-4 md:w-6 md:h-6 text-[#F54029]/50" />
-        )}
-      </button>
+
 
       {/* VR Scene Background */}
       <div className="absolute inset-0 z-0 select-none">
@@ -207,104 +191,36 @@ export default function VRBackground() {
         onClick={() => setHudOpen(!hudOpen)}
         className={`pointer-events-auto fixed z-[3000] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ease-out border border-l-0 border-[#F54029]/30 rounded-r-md bg-[#050a14]/40 backdrop-blur-xl shadow-[0_4px_16px_rgba(245,64,41,0.1)] text-[#F54029] text-xs
           ${hudOpen ? 'left-[250px]' : 'left-0'}
-          w-6 h-20 top-[45%] -translate-y-1/2 md:top-[45%]
-          hover:opacity-80
+          w-8 h-32 top-[calc(50%-72px)] -translate-y-1/2 md:w-8 md:h-32 md:top-[calc(50%-72px)]
+          hover:opacity-80 active:opacity-60
         `}
       >
         <div className="relative w-full h-full flex flex-col items-center justify-center">
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 text-sm leading-none font-bold">
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 text-sm leading-none font-bold">
             {hudOpen ? '×' : '→'}
           </div>
-          <div className="absolute bottom-7 left-1/2 -translate-x-1/2 -rotate-90 text-[10px] tracking-widest font-bold opacity-90 whitespace-nowrap font-mono">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 -rotate-90 text-[10px] tracking-widest font-bold opacity-90 whitespace-nowrap font-mono origin-center">
             {hudOpen ? 'CLOSE' : 'SETTINGS'}
           </div>
         </div>
       </div>
 
-      {/* Shop Tab */}
-      <div
-        onClick={handleShopToggle}
-        className="pointer-events-auto"
-        style={{
-          position: 'absolute',
-          left: '0px',
-          top: '55%',
-          transform: 'translateY(-50%)',
-          width: '24px',
-          height: '80px',
-          background: 'rgba(5, 10, 20, 0.4)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(245, 64, 41, 0.3)',
-          borderLeft: 'none',
-          borderTopRightRadius: '6px',
-          borderBottomRightRadius: '6px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 3000,
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-          fontSize: '12px',
-          color: '#F54029',
-          boxShadow: '0 4px 16px rgba(245, 64, 41, 0.1)',
-        }}
-      >
-        <div style={{
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          width: '100%'
-        }}>
-          <div style={{
-            position: 'absolute',
-            top: '8px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            fontSize: '14px',
-            lineHeight: '1',
-            fontWeight: 'bold',
-            textAlign: 'center',
-          }}>
-            {hudOpen ? '×' : '→'}
-          </div>
-          <div style={{
-            position: 'absolute',
-            bottom: '27px',
-            left: '50%',
-            transform: 'translateX(-50%) rotate(-90deg)',
-            fontSize: '10px',
-            letterSpacing: '1px',
-            fontWeight: 'bold',
-            opacity: 0.9,
-            whiteSpace: 'nowrap',
-            textAlign: 'center',
-            transition: 'all 0.3s ease',
-            fontFamily: 'monospace'
-          }}>
-            {hudOpen ? 'CLOSE' : 'SETTINGS'}
-          </div>
-        </div>
-      </div>
+
 
       {/* Shop Tab */}
       <div
         onClick={handleShopToggle}
         className={`pointer-events-auto fixed z-[3000] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ease-out border border-l-0 border-[#F54029]/30 rounded-r-md bg-[#050a14]/40 backdrop-blur-xl shadow-[0_4px_16px_rgba(245,64,41,0.1)] text-[#F54029] text-xs
           left-0
-          w-6 h-20 top-[55%] -translate-y-1/2
-          hover:opacity-80
+          w-8 h-32 top-[calc(50%+72px)] -translate-y-1/2 md:w-8 md:h-32 md:top-[calc(50%+72px)]
+          hover:opacity-80 active:opacity-60
         `}
       >
         <div className="relative w-full h-full flex flex-col items-center justify-center">
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 text-sm leading-none font-bold">
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 text-sm leading-none font-bold">
             {shopOpen ? '×' : '→'}
           </div>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 -rotate-90 text-[10px] tracking-widest font-bold opacity-90 whitespace-nowrap font-mono">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 -rotate-90 text-[10px] tracking-widest font-bold opacity-90 whitespace-nowrap font-mono origin-center">
             {scrambledText}
           </div>
         </div>
@@ -465,7 +381,8 @@ export default function VRBackground() {
       </div>
 
       {/* Shopify Storefront */}
-      <ShopifyStorefront
+      {/* BasaltSurge Storefront */}
+      <BasaltSurgeStorefront
         isVisible={shopOpen}
         onClose={() => setShopOpen(false)}
       />
